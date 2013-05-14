@@ -14,7 +14,7 @@ namespace MachineCloud.Web.Controllers
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            int a = 0;
+            int a = 5;
             ViewBag.AssetTypes = AssetTypeService.GetAllAssetTypes();
             base.Initialize(requestContext);
         }
