@@ -1,0 +1,8 @@
+﻿<li class="nav-header">Data</li>
+@foreach (MachineCloud.Domain.AssetType type in ViewBag.AssetTypes)
+{
+    if (!string.IsNullOrEmpty(type.Name))
+    {
+        <li>@Html.ActionLink(type.Name,"Index","Home")</li>
+    }
+}

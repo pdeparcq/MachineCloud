@@ -1,0 +1,42 @@
+﻿@model MachineCloud.Web.Models.UnitOfMeasurementViewModel
+
+@{
+    ViewBag.Title = "Units Of Measurement";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            ShortName
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            &nbsp;
+        </th>
+    </tr>
+    @foreach (var unit in Model.UnitsOfMeasurement)
+    {
+    <tr>
+        <td>@unit.Name</td>
+        <td>@unit.ShortName</td>
+        <td>@Enum.GetName(typeof(MachineCloud.Domain.SystemTypes),unit.ValueType)</td>
+        <td>@Html.ActionLink("Remove","Remove",new{unit.Name},new{@class="btn btn-warning"})</td>
+    </tr>
+    }
+    @using (Html.BeginForm("Create", "UnitOfMeasurement"))
+    {
+        <tr class="info">
+            <td>@Html.TextBox("name",null)</td>
+            <td>@Html.TextBox("shortName",null)</td>
+            <td>
+                @Html.DropDownList("systemValueType",Model.SelectableSystemValueTypes)
+            </td>
+            <td><button type="submit" class="btn btn-success">Add</button></td>
+        </tr>
+    }
+</table>
