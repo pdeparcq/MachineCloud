@@ -37,10 +37,10 @@ namespace MachineCloud.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddProperty(string name, string propertyName, string optionsPropertyType, string selectedSystemValueType, string selectedUnitOfMeasurement, string selectedAssetType)
+        public ActionResult AddProperty(string name, string propertyName, bool propertyIsUniqueIdentifier, string optionsPropertyType, string selectedSystemValueType, string selectedUnitOfMeasurement, string selectedAssetType)
         {
             
-            var property = new AssetProperty {Name = propertyName};
+            var property = new AssetProperty {Name = propertyName, IsUniqueIdentifier = propertyIsUniqueIdentifier};
             if (optionsPropertyType == "optionSystemValueType")
             {
                 property.ValueType = (SystemTypes) Enum.Parse(typeof (SystemTypes), selectedSystemValueType);

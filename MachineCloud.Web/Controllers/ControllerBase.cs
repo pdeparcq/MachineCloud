@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using MachineCloud.Application;
 using Ninject;
 
@@ -14,8 +15,7 @@ namespace MachineCloud.Web.Controllers
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            int a = 5;
-            ViewBag.AssetTypes = AssetTypeService.GetAllAssetTypes();
+            ViewBag.AssetTypes = AssetTypeService.GetAllAssetTypes().Where(x => x.HasUniqueIdentifier);
             base.Initialize(requestContext);
         }
 

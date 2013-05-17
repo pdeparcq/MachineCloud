@@ -3,6 +3,6 @@
 {
     if (!string.IsNullOrEmpty(type.Name))
     {
-        <li>@Html.ActionLink(type.Name,"Index","Home")</li>
+        <li>@Html.ActionLink(type.Name,"Index","Asset",new{assetType=type.Name},null)</li>
     }
 }

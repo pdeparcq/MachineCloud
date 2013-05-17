@@ -13,6 +13,9 @@
             Property Name
         </th>
         <th>
+            Unique Identifier?
+        </th>
+        <th>
             Property Type / Unit Of Measurement
         </th>
         <th>
@@ -26,12 +29,14 @@
             <td>@Html.ActionLink("Remove","Remove",new{type.Name},new{@class="btn btn-warning"})</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
         foreach (var property in type.Properties)
         {
         <tr class="info">
             <td>&nbsp;</td>
             <td>@property.Name</td>
+            <td><input type="checkbox" disabled="disabled" @(property.IsUniqueIdentifier?"checked=checked":"")></td>
             <td>
                 @if (property.ValueType != null)
                 {
@@ -41,7 +46,7 @@
                 {
                     @property.UnitOfMeasurement.Name  <text>(</text> @property.UnitOfMeasurement.ShortName <text>)</text>
                 }
-                else
+                else if(property.Type != null)
                 {
                     @property.Type.Name
                 }
@@ -54,6 +59,7 @@
             <tr class="info">
                 <td>&nbsp;</td>
                 <td>@Html.TextBox("propertyName",null)</td>
+                <td>@Html.CheckBox("propertyIsUniqueIdentifier",false)</td>
                 <td>
                     <label class="radio">
                         <input type="radio" name="optionsPropertyType" id="optionSystemValueType" value="optionSystemValueType" checked>
@@ -81,6 +87,7 @@
          <tr class="success">
             <td>@Html.TextBox("name",null)</td>
             <td><button type="submit" class="btn btn-success">Add</button></td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

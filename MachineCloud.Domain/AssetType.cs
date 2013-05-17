@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace MachineCloud.Domain
 {
@@ -22,6 +23,19 @@ namespace MachineCloud.Domain
         public void AddProperty(AssetProperty property)
         {
             Properties.Add(property);
+        }
+
+        public bool HasUniqueIdentifier
+        {
+            get { return UniqueIdentifier != null; }
+        }
+
+        public AssetProperty UniqueIdentifier
+        {
+            get
+            {
+                return Properties.FirstOrDefault(x => x.IsUniqueIdentifier);
+            }   
         }
     }
 }

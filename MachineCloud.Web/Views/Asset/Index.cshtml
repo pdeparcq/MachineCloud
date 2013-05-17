@@ -1,0 +1,20 @@
+﻿@using MachineCloud.Domain
+@model MachineCloud.Web.Models.AssetViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.AssetType.Name</h2>
+
+@using (Html.BeginForm("Create", "Asset", new {assetType = Model.AssetType.Name}))
+{
+    <fieldset>
+        <legend>Create new @Model.AssetType.Name</legend>
+        @{
+            Html.RenderPartial("_EditAsset", new MachineCloud.Web.Models.EditAssetViewModel{Asset = new Asset(Model.AssetType)});
+        }
+        <button type="submit" class="btn">Create</button>
+    </fieldset>
+    
+}

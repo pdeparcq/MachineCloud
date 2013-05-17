@@ -19,8 +19,8 @@ namespace MachineCloud.Test
             var degrees = new UnitOfMeasurement { Name = "Degrees", ShortName = "°", ValueType = SystemTypes.Double };
 
             var geoLocation = new AssetType { Name = "GeoLocation" };
-            geoLocation.AddProperty(new AssetProperty { Name = "Longitude", IsMandatory = true, UnitOfMeasurement = degrees });
-            geoLocation.AddProperty(new AssetProperty { Name = "Latitude", IsMandatory = true, UnitOfMeasurement = degrees });
+            geoLocation.AddProperty(new AssetProperty { Name = "Longitude", UnitOfMeasurement = degrees });
+            geoLocation.AddProperty(new AssetProperty { Name = "Latitude", UnitOfMeasurement = degrees });
 
             return geoLocation;
         }
@@ -31,9 +31,9 @@ namespace MachineCloud.Test
             var milesPerHour = new UnitOfMeasurement { Name = "MilesPerHour", ShortName = "mph", ValueType = SystemTypes.Integer };
 
             var vehicle = new AssetType { Name = "Vehicle" };
-            vehicle.AddProperty(new AssetProperty { Name = "SerialNumber", IsMandatory = true, IsUniqueIdentifier = true, ValueType = SystemTypes.String });
-            vehicle.AddProperty(new AssetProperty { Name = "Position", IsMandatory = true, Type = geoLocationAssetType });
-            vehicle.AddProperty(new AssetProperty { Name = "Speed", IsMandatory = true, UnitOfMeasurement = milesPerHour });
+            vehicle.AddProperty(new AssetProperty { Name = "SerialNumber", IsUniqueIdentifier = true, ValueType = SystemTypes.String });
+            vehicle.AddProperty(new AssetProperty { Name = "Position", Type = geoLocationAssetType });
+            vehicle.AddProperty(new AssetProperty { Name = "Speed", UnitOfMeasurement = milesPerHour });
             return vehicle;
         }
 

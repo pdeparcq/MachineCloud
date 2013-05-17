@@ -1,0 +1,39 @@
+﻿@using MachineCloud.Domain
+@using MachineCloud.Web.Models
+@model EditAssetViewModel
+
+@foreach (var propertyValue in Model.Asset.PropertyValues)
+{
+    var fullPropertyName = Model.GetFullPropertyName(propertyValue.Property.Name);
+
+
+    if (propertyValue.Property.ValueType != null || propertyValue.Property.UnitOfMeasurement != null)
+    {
+        
+        <div class="control-group">
+            <label class="control-label" for="@fullPropertyName">@fullPropertyName</label>
+            <div class="controls">
+            @{
+                var systemValueType = propertyValue.Property.ValueType != null ? propertyValue.Property.ValueType.Value : propertyValue.Property.UnitOfMeasurement.ValueType;
+
+                if (systemValueType == SystemTypes.Boolean)
+                {
+                    <label class="checkbox">
+                        <input type="checkbox" id="@fullPropertyName" />
+                    </label>
+                }
+                else
+                {
+                    <input type="text" id="@fullPropertyName" placeholder="@propertyValue.Property.Name" />
+                    @(propertyValue.Property.UnitOfMeasurement != null ? propertyValue.Property.UnitOfMeasurement.ShortName : "")
+                }
+            }
+            </div>
+        </div>
+    }
+    else if(propertyValue.AssetValue != null)
+    {
+        Html.RenderPartial("_EditAsset", new EditAssetViewModel{Asset=propertyValue.AssetValue,ParentPropertyName = fullPropertyName});
+    }
+       
+}

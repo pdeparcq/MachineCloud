@@ -144,6 +144,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AssetTypeController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -152,6 +153,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AssetTypeViewModel.cs" />
+    <Compile Include="Models\AssetViewModel.cs" />
+    <Compile Include="Models\EditAssetViewModel.cs" />
     <Compile Include="Models\UnitOfMeasurementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -258,6 +261,8 @@
     <Content Include="Views\UnitOfMeasurement\Index.cshtml" />
     <Content Include="Views\AssetType\Index.cshtml" />
     <Content Include="Views\Shared\_DataMenu.cshtml" />
+    <Content Include="Views\Asset\Index.cshtml" />
+    <Content Include="Views\Asset\_EditAsset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
