@@ -1,5 +1,5 @@
 ﻿@using MachineCloud.Domain
-@model MachineCloud.Web.Models.AssetViewModel
+@model MachineCloud.Web.Models.AssetListViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,14 +7,63 @@
 
 <h2>@Model.AssetType.Name</h2>
 
-@using (Html.BeginForm("Create", "Asset", new {assetType = Model.AssetType.Name}))
-{
-    <fieldset>
-        <legend>Create new @Model.AssetType.Name</legend>
-        @{
-            Html.RenderPartial("_EditAsset", new MachineCloud.Web.Models.EditAssetViewModel{Asset = new Asset(Model.AssetType)});
+<table class="table">
+    <tr>
+        @foreach (var property in Model.Properties)
+        {
+            <th>
+                @property.FullName
+            </th>
         }
-        <button type="submit" class="btn">Create</button>
-    </fieldset>
-    
-}
+        <th>
+            &nbsp;
+        </th>
+    </tr>
+    @foreach (var asset in Model.Assets)
+    {
+        <tr>
+        @foreach (var property in Model.Properties)
+        {
+            <td>
+                @asset.PropertyValues[property].SystemValue
+            </td>
+        }
+            <td>
+                @Html.ActionLink("Remove","Remove",new{assetType=Model.AssetType.Name, uniqueIdentifier = @asset.Asset.UniqueIdentifier},new{@class="btn btn-warning"})
+            </td>
+        </tr>
+    }
+    <tr>
+        @using (Html.BeginForm("Create", "Asset", new {assetType = Model.AssetType.Name}))
+        {
+           foreach (var property in Model.Properties)
+            {
+                <th>
+                    @if (property.PossibleValues == null)
+                    {
+                        var systemValueType = property.Property.ValueType != null ? property.Property.ValueType.Value : property.Property.UnitOfMeasurement.ValueType;
+
+                        if (systemValueType == SystemTypes.Boolean)
+                        {
+                            <label class="checkbox">
+                                <input type="checkbox" id="@property.FullName" name="@property.FullName"/>
+                            </label>
+                        }
+                        else
+                        {
+                            <input type="text" id="@property.FullName" name="@property.FullName" placeholder="@property.Property.Name" class="input-small" />
+                            @(property.Property.UnitOfMeasurement != null ? property.Property.UnitOfMeasurement.ShortName : "")
+                        }
+                    }
+                    else
+                    {
+                        @Html.DropDownList(property.FullName, property.PossibleValues)
+                    } 
+                </th>
+            } 
+            <th>
+                <button type="submit" class="btn btn-success">Add</button>
+            </th>
+        }
+    </tr>
+</table>

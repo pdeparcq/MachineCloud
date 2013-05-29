@@ -44,6 +44,7 @@
     <Compile Include="AssetProperty.cs" />
     <Compile Include="AssetPropertyValue.cs" />
     <Compile Include="AssetType.cs" />
+    <Compile Include="IAssetRepository.cs" />
     <Compile Include="IAssetTypeRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfMeasurementRepository.cs" />

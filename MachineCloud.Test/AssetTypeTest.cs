@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using MachineCloud.Domain;
 using MachineCloud.Infrastructure.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -62,8 +64,18 @@ namespace MachineCloud.Test
             {
                 context.Database.Initialize(true);
                 var repository = new AssetTypeRepository {Context = context};
-                repository.Add(CreateVehicleAssetType(CreateGeoLocationAssetType()));
+                var assetType = CreateVehicleAssetType(CreateGeoLocationAssetType());
+                repository.Add(assetType);
                 context.Commit();
+
+                var assetRepository = new AssetRepository() {AssetTypeRepository = repository};
+                var asset = new Asset(assetType);
+                asset.SetPropertySystemValue("SerialNumber",Guid.NewGuid().ToString());
+                asset.SetPropertySystemValue("Speed","100");
+                assetRepository.Add(asset);
+
+                var assets =new List<Asset>(assetRepository.GetAll(assetType));
+                Assert.IsTrue(assets.Count > 0);
             }
         }
     }

@@ -10,19 +10,21 @@ namespace MachineCloud.Application
         public override void Load()
         {
             //DbContexts
-            Bind<MachineCloudContext>().ToSelf().InSingletonScope();
+            Bind<MachineCloudContext>().ToSelf().InThreadScope();
 
             //Units of Works
             Bind<IUnitOfWork>()
                   .ToMethod(context => context.Kernel.Get<MachineCloudContext>());
 
             //Repositories
-            Bind<IUnitOfMeasurementRepository>().To<UnitOfMeasurementRepository>().InSingletonScope();
-            Bind<IAssetTypeRepository>().To<AssetTypeRepository>().InSingletonScope();
+            Bind<IUnitOfMeasurementRepository>().To<UnitOfMeasurementRepository>().InThreadScope();
+            Bind<IAssetTypeRepository>().To<AssetTypeRepository>().InThreadScope();
+            Bind<IAssetRepository>().To<AssetRepository>().InThreadScope();
 
             //Services
-            Bind<IAssetTypeService>().To<AssetTypeService>().InSingletonScope();
-            Bind<IUnitOfMeasurementService>().To<UnitOfMeasurementService>().InSingletonScope();
+            Bind<IAssetTypeService>().To<AssetTypeService>().InThreadScope();
+            Bind<IUnitOfMeasurementService>().To<UnitOfMeasurementService>().InThreadScope();
+            Bind<IAssetService>().To<AssetService>().InThreadScope();
         }
     }
 }
